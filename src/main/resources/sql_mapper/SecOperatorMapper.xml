@@ -1,149 +1,144 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.rocky.dao.SecOperatorDao">
+<mapper namespace="com.rocky.mapper.SecOperatorDao">
     <resultMap id="BaseResultMap" type="com.rocky.model.busibean.SecOperator">
-        <id property="operatorId" column="operator_id" jdbcType="INTEGER" />
-        <result property="operatorName" column="operator_name" jdbcType="VARCHAR" />
-        <result property="operatorPassword" column="operator_password" jdbcType="VARCHAR" />
-        <result property="operatorType" column="operator_type" jdbcType="INTEGER" />
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
-        <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" />
-        <result property="createOperator" column="create_operator" jdbcType="INTEGER" />
-        <result property="modifyOperator" column="modify_operator" jdbcType="INTEGER" />
-        <result property="remarks" column="remarks" jdbcType="VARCHAR" />
-        <result property="state" column="state" jdbcType="INTEGER" />
+        <id property="operatorId" column="operator_id" jdbcType="INTEGER"/>
+        <result property="operatorName" column="operator_name" jdbcType="VARCHAR"/>
+        <result property="operatorPassword" column="operator_password" jdbcType="VARCHAR"/>
+        <result property="operatorType" column="operator_type" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+        <result property="createOperator" column="create_operator" jdbcType="INTEGER"/>
+        <result property="modifyOperator" column="modify_operator" jdbcType="INTEGER"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="Base_Column_List">
-        <![CDATA[
-		operator_id,
-		operator_name,
-		operator_password,
-		operator_type,
-		create_time,
-		modify_time,
-		create_operator,
-		modify_operator,
-		remarks,
-		state
-        ]]>
+        operator_id,
+        operator_name,
+        operator_password,
+        operator_type,
+        create_time,
+        modify_time,
+        create_operator,
+        modify_operator,
+        remarks,
+        state
     </sql>
 
     <!--根据主键ID查询记录-->
-    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-        SELECT <include refid="Base_Column_List" />
-        <![CDATA[
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+          <include refid="Base_Column_List"/>
         FROM sec_operator
         WHERE
-		operator_id = #{id}
-        ]]>
+          operator_id = #{id}
     </select>
 
     <!--更新-->
-    <update id="update" parameterType="com.rocky.model.busibean.SecOperator" >
+    <update id="update" parameterType="com.rocky.model.busibean.SecOperator">
         update sec_operator
         <set>
-            <if test="null != operatorName" >
+            <if test="null != operatorName">
                 <![CDATA[ operator_name = #{operatorName} , ]]>
             </if>
-            <if test="null != operatorPassword" >
+            <if test="null != operatorPassword">
                 <![CDATA[ operator_password = #{operatorPassword} , ]]>
             </if>
-            <if test="null != operatorType" >
+            <if test="null != operatorType">
                 <![CDATA[ operator_type = #{operatorType} , ]]>
             </if>
-            <if test="null != createTime" >
+            <if test="null != createTime">
                 <![CDATA[ create_time = #{createTime} , ]]>
             </if>
-            <if test="null != modifyTime" >
+            <if test="null != modifyTime">
                 <![CDATA[ modify_time = #{modifyTime} , ]]>
             </if>
-            <if test="null != createOperator" >
+            <if test="null != createOperator">
                 <![CDATA[ create_operator = #{createOperator} , ]]>
             </if>
-            <if test="null != modifyOperator" >
+            <if test="null != modifyOperator">
                 <![CDATA[ modify_operator = #{modifyOperator} , ]]>
             </if>
-            <if test="null != remarks" >
+            <if test="null != remarks">
                 <![CDATA[ remarks = #{remarks} , ]]>
             </if>
-            <if test="null != state" >
+            <if test="null != state">
                 <![CDATA[ state = #{state}  ]]>
             </if>
         </set>
         <![CDATA[
         WHERE
-		operator_id = #{operatorId ,jdbcType=INTEGER}
+          operator_id = #{operatorId ,jdbcType=INTEGER}
         ]]>
     </update>
 
-    <delete id="deleteById" parameterType="java.lang.Integer" >
-        <![CDATA[
-        DELETE FROM sec_operator WHERE
-		operator_id = #{id}
-        ]]>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM sec_operator WHERE operator_id = #{id}
     </delete>
 
     <!--新增 -->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="operatorId" parameterType="com.rocky.model.busibean.SecOperator">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="operatorId"
+            parameterType="com.rocky.model.busibean.SecOperator">
         INSERT INTO sec_operator
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="null != operatorName" >
+            <if test="null != operatorName">
                 operator_name,
             </if>
-            <if test="null != operatorPassword" >
+            <if test="null != operatorPassword">
                 operator_password,
             </if>
-            <if test="null != operatorType" >
+            <if test="null != operatorType">
                 operator_type,
             </if>
-            <if test="null != createTime" >
+            <if test="null != createTime">
                 create_time,
             </if>
-            <if test="null != modifyTime" >
+            <if test="null != modifyTime">
                 modify_time,
             </if>
-            <if test="null != createOperator" >
+            <if test="null != createOperator">
                 create_operator,
             </if>
-            <if test="null != modifyOperator" >
+            <if test="null != modifyOperator">
                 modify_operator,
             </if>
-            <if test="null != remarks" >
+            <if test="null != remarks">
                 remarks,
             </if>
-            <if test="null != state" >
+            <if test="null != state">
                 state
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="null != operatorName" >
+            <if test="null != operatorName">
                 #{operatorName ,jdbcType=VARCHAR},
             </if>
-            <if test="null != operatorPassword" >
+            <if test="null != operatorPassword">
                 #{operatorPassword ,jdbcType=VARCHAR},
             </if>
-            <if test="null != operatorType" >
+            <if test="null != operatorType">
                 #{operatorType ,jdbcType=INTEGER},
             </if>
-            <if test="null != createTime" >
+            <if test="null != createTime">
                 #{createTime ,jdbcType=TIMESTAMP},
             </if>
-            <if test="null != modifyTime" >
+            <if test="null != modifyTime">
                 #{modifyTime ,jdbcType=TIMESTAMP},
             </if>
-            <if test="null != createOperator" >
+            <if test="null != createOperator">
                 #{createOperator ,jdbcType=INTEGER},
             </if>
-            <if test="null != modifyOperator" >
+            <if test="null != modifyOperator">
                 #{modifyOperator ,jdbcType=INTEGER},
             </if>
-            <if test="null != remarks" >
+            <if test="null != remarks">
                 #{remarks ,jdbcType=VARCHAR},
             </if>
-            <if test="null != state" >
+            <if test="null != state">
                 #{state ,jdbcType=INTEGER}
             </if>
         </trim>
@@ -152,35 +147,36 @@
 
     <!--查询数据列表-->
     <select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map">
-        SELECT <include refid="Base_Column_List" />
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM sec_operator
         <where>
             <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
-            <if test="null != operatorName" >
+            <if test="null != operatorName">
                 <![CDATA[ AND operator_name = #{operatorName ,jdbcType=VARCHAR} ]]>
             </if>
-            <if test="null != operatorPassword" >
+            <if test="null != operatorPassword">
                 <![CDATA[ AND operator_password = #{operatorPassword ,jdbcType=VARCHAR} ]]>
             </if>
-            <if test="null != operatorType" >
+            <if test="null != operatorType">
                 <![CDATA[ AND operator_type = #{operatorType ,jdbcType=INTEGER} ]]>
             </if>
-            <if test="null != createTime" >
+            <if test="null != createTime">
                 <![CDATA[ AND create_time = #{createTime ,jdbcType=TIMESTAMP} ]]>
             </if>
-            <if test="null != modifyTime" >
+            <if test="null != modifyTime">
                 <![CDATA[ AND modify_time = #{modifyTime ,jdbcType=TIMESTAMP} ]]>
             </if>
-            <if test="null != createOperator" >
+            <if test="null != createOperator">
                 <![CDATA[ AND create_operator = #{createOperator ,jdbcType=INTEGER} ]]>
             </if>
-            <if test="null != modifyOperator" >
+            <if test="null != modifyOperator">
                 <![CDATA[ AND modify_operator = #{modifyOperator ,jdbcType=INTEGER} ]]>
             </if>
-            <if test="null != remarks" >
+            <if test="null != remarks">
                 <![CDATA[ AND remarks = #{remarks ,jdbcType=VARCHAR} ]]>
             </if>
-            <if test="null != state" >
+            <if test="null != state">
                 <![CDATA[ AND state = #{state ,jdbcType=INTEGER} ]]>
             </if>
         </where>
@@ -188,5 +184,18 @@
 
     <!-- ========================自定义mapper======================== -->
 
+    <!--根据名称密码查询-->
+    <select id="queryByNameAndPassword" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM sec_operator
+        WHERE state = 1
+            <if test="null != operatorName">
+                <![CDATA[ AND operator_name = #{operatorName ,jdbcType=VARCHAR} ]]>
+            </if>
+            <if test="null != operatorPassword">
+                <![CDATA[ AND operator_password = #{operatorPassword ,jdbcType=VARCHAR} ]]>
+            </if>
+    </select>
 </mapper>
 

@@ -1,65 +1,54 @@
 package com.rocky.service.impl;
 
-import java.util.Date;
+import com.github.pagehelper.PageHelper;
+import com.rocky.mapper.CmCustomerDao;
+import com.rocky.model.busibean.CmCustomer;
+import com.rocky.service.CmCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.rocky.dao.busibean.CmCustomerMapper;
-import com.rocky.api.busibean.ICmCustomerService;
-import com.rocky.busibean.CmCustomer;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class CmCustomerServiceImpl implements CmCustomerService {
 
-	@Autowired
+    @Autowired
     private CmCustomerDao cmCustomerDao;
-	
+
     @Override
     public CmCustomer getById(Integer id) {
-        return cmCustomerMapper.getById(id);
+        return cmCustomerDao.getById(id);
     }
 
     @Override
     public int insert(CmCustomer entity) {
         entity.setCreateTime(new Date());
         entity.setModifyTime(new Date());
-        return cmCustomerMapper.insert(entity);
+        return cmCustomerDao.insert(entity);
     }
 
     @Override
     public int update(CmCustomer entity) {
         entity.setModifyTime(new Date());
-
-        return cmCustomerMapper.update(entity);
+        return cmCustomerDao.update(entity);
     }
 
     @Override
     public int deleteById(Integer id) {
-        return cmCustomerMapper.deleteById(id);
+        return cmCustomerDao.deleteById(id);
     }
 
     @Override
-    public List <CmCustomer> queryList(CmCustomerQuery cmCustomerQuery) {
-        Map<String, Object> map = BeanToMapUtils.toMap(cmCustomerQuery);
-        return cmCustomerMapper.queryList(map);
+    public List<CmCustomer> queryList(Map map) {
+        return cmCustomerDao.queryList(map);
     }
 
     @Override
-    public DataPage<CmCustomer> queryForPage(CmCustomerQuery cmCustomerQuery, int currentPage, int pageSize) {
-        DataPage<CmCustomer> dataPage = new DataPage<>();
-
-        Map<String, Object> map = BeanToMapUtils.toMap(cmCustomerQuery);
-
-        Paging page = new Paging();
-        page.setCurrentPage(currentPage);
-        page.setPageSize(pageSize);
-        map.put("page", page);
-
-        List<CmCustomer> list = cmCustomerMapper.queryList(map);
-        dataPage.setData(list);
-        dataPage.setTotalItem(page.getTotalItem());
-        dataPage.setPageSize(page.getPageSize());
-        dataPage.setCurrentPage(page.getCurrentPage());
-        return dataPage;
+    public List<CmCustomer> queryListByPage(Map map, int startPage, int pageSize) {
+        PageHelper.startPage(startPage,pageSize);
+        return queryList(map);
     }
 
 }

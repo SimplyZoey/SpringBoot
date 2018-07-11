@@ -2,171 +2,164 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 
-<mapper namespace="com.rocky.dao.CmCustomerDao">
-	<resultMap id="BaseResultMap" type="com.rocky.model.busibean.CmCustomer">
-		<id property="custId" column="cust_id" jdbcType="INTEGER" />
-		<result property="custName" column="cust_name" jdbcType="VARCHAR" />
-		<result property="idenType" column="iden_type" jdbcType="INTEGER" />
-		<result property="idenNumber" column="iden_number" jdbcType="VARCHAR" />
-		<result property="effectiveTime" column="effective_time" jdbcType="TIMESTAMP" />
-		<result property="expireTime" column="expire_time" jdbcType="TIMESTAMP" />
-		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
-		<result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" />
-		<result property="createOperator" column="create_operator" jdbcType="INTEGER" />
-		<result property="modifyOperator" column="modify_operator" jdbcType="INTEGER" />
-		<result property="remarks" column="remarks" jdbcType="VARCHAR" />
-		<result property="state" column="state" jdbcType="INTEGER" />
-	</resultMap>
+<mapper namespace="com.rocky.mapper.CmCustomerDao">
+    <resultMap id="BaseResultMap" type="com.rocky.model.busibean.CmCustomer">
+        <id property="custId" column="cust_id" jdbcType="INTEGER"/>
+        <result property="custName" column="cust_name" jdbcType="VARCHAR"/>
+        <result property="idenType" column="iden_type" jdbcType="INTEGER"/>
+        <result property="idenNumber" column="iden_number" jdbcType="VARCHAR"/>
+        <result property="effectiveTime" column="effective_time" jdbcType="TIMESTAMP"/>
+        <result property="expireTime" column="expire_time" jdbcType="TIMESTAMP"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP"/>
+        <result property="createOperator" column="create_operator" jdbcType="INTEGER"/>
+        <result property="modifyOperator" column="modify_operator" jdbcType="INTEGER"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="Base_Column_List">
-        <![CDATA[
-		cust_id,
-		cust_name,
-		iden_type,
-		iden_number,
-		effective_time,
-		expire_time,
-		create_time,
-		modify_time,
-		create_operator,
-		modify_operator,
-		remarks,
-		state
-        ]]>
+        cust_id,
+        cust_name,
+        iden_type,
+        iden_number,
+        effective_time,
+        expire_time,
+        create_time,
+        modify_time,
+        create_operator,
+        modify_operator,
+        remarks,
+        state
     </sql>
 
     <!--根据主键ID查询记录-->
-    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-        SELECT <include refid="Base_Column_List" />
-        <![CDATA[
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+          <include refid="Base_Column_List"/>
         FROM cm_customer
         WHERE
-		cust_id = #{id} 
-        ]]>
+          cust_id = #{id}
     </select>
 
     <!--更新-->
-    <update id="update" parameterType="com.rocky.model.busibean.CmCustomer" >
+    <update id="update" parameterType="com.rocky.model.busibean.CmCustomer">
         update cm_customer
         <set>
-            <if test="null != custName" >
+            <if test="null != custName">
                 <![CDATA[ cust_name = #{custName} , ]]>
-			</if>
-            <if test="null != idenType" >
+            </if>
+            <if test="null != idenType">
                 <![CDATA[ iden_type = #{idenType} , ]]>
-			</if>
-            <if test="null != idenNumber" >
+            </if>
+            <if test="null != idenNumber">
                 <![CDATA[ iden_number = #{idenNumber} , ]]>
-			</if>
-            <if test="null != effectiveTime" >
+            </if>
+            <if test="null != effectiveTime">
                 <![CDATA[ effective_time = #{effectiveTime} , ]]>
-			</if>
-            <if test="null != expireTime" >
+            </if>
+            <if test="null != expireTime">
                 <![CDATA[ expire_time = #{expireTime} , ]]>
-			</if>
-            <if test="null != createTime" >
+            </if>
+            <if test="null != createTime">
                 <![CDATA[ create_time = #{createTime} , ]]>
-			</if>
-            <if test="null != modifyTime" >
+            </if>
+            <if test="null != modifyTime">
                 <![CDATA[ modify_time = #{modifyTime} , ]]>
-			</if>
-            <if test="null != createOperator" >
+            </if>
+            <if test="null != createOperator">
                 <![CDATA[ create_operator = #{createOperator} , ]]>
-			</if>
-            <if test="null != modifyOperator" >
+            </if>
+            <if test="null != modifyOperator">
                 <![CDATA[ modify_operator = #{modifyOperator} , ]]>
-			</if>
-            <if test="null != remarks" >
+            </if>
+            <if test="null != remarks">
                 <![CDATA[ remarks = #{remarks} , ]]>
-			</if>
-            <if test="null != state" >
+            </if>
+            <if test="null != state">
                 <![CDATA[ state = #{state}  ]]>
-			</if>
-		</set>
-        <![CDATA[
+            </if>
+        </set>
         WHERE
-		cust_id = #{custId ,jdbcType=INTEGER} 
-        ]]>
+          cust_id = #{custId ,jdbcType=INTEGER}
     </update>
 
-    <delete id="deleteById" parameterType="java.lang.Integer" >
-        <![CDATA[
-        DELETE FROM cm_customer WHERE
-		cust_id = #{id} 
-        ]]>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM cm_customer WHERE cust_id = #{id}
     </delete>
 
     <!--新增 -->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="custId" parameterType="com.rocky.model.busibean.CmCustomer">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="custId"
+            parameterType="com.rocky.model.busibean.CmCustomer">
         INSERT INTO cm_customer
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="null != custName" >
-			    cust_name,
+            <if test="null != custName">
+                cust_name,
             </if>
-            <if test="null != idenType" >
-			    iden_type,
+            <if test="null != idenType">
+                iden_type,
             </if>
-            <if test="null != idenNumber" >
-			    iden_number,
+            <if test="null != idenNumber">
+                iden_number,
             </if>
-            <if test="null != effectiveTime" >
-			    effective_time,
+            <if test="null != effectiveTime">
+                effective_time,
             </if>
-            <if test="null != expireTime" >
-			    expire_time,
+            <if test="null != expireTime">
+                expire_time,
             </if>
-            <if test="null != createTime" >
-			    create_time,
+            <if test="null != createTime">
+                create_time,
             </if>
-            <if test="null != modifyTime" >
-			    modify_time,
+            <if test="null != modifyTime">
+                modify_time,
             </if>
-            <if test="null != createOperator" >
-			    create_operator,
+            <if test="null != createOperator">
+                create_operator,
             </if>
-            <if test="null != modifyOperator" >
-			    modify_operator,
+            <if test="null != modifyOperator">
+                modify_operator,
             </if>
-            <if test="null != remarks" >
-			    remarks,
+            <if test="null != remarks">
+                remarks,
             </if>
-            <if test="null != state" >
-			    state
+            <if test="null != state">
+                state
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="null != custName" >
+            <if test="null != custName">
                 #{custName ,jdbcType=VARCHAR},
             </if>
-            <if test="null != idenType" >
+            <if test="null != idenType">
                 #{idenType ,jdbcType=INTEGER},
             </if>
-            <if test="null != idenNumber" >
+            <if test="null != idenNumber">
                 #{idenNumber ,jdbcType=VARCHAR},
             </if>
-            <if test="null != effectiveTime" >
+            <if test="null != effectiveTime">
                 #{effectiveTime ,jdbcType=TIMESTAMP},
             </if>
-            <if test="null != expireTime" >
+            <if test="null != expireTime">
                 #{expireTime ,jdbcType=TIMESTAMP},
             </if>
-            <if test="null != createTime" >
+            <if test="null != createTime">
                 #{createTime ,jdbcType=TIMESTAMP},
             </if>
-            <if test="null != modifyTime" >
+            <if test="null != modifyTime">
                 #{modifyTime ,jdbcType=TIMESTAMP},
             </if>
-            <if test="null != createOperator" >
+            <if test="null != createOperator">
                 #{createOperator ,jdbcType=INTEGER},
             </if>
-            <if test="null != modifyOperator" >
+            <if test="null != modifyOperator">
                 #{modifyOperator ,jdbcType=INTEGER},
             </if>
-            <if test="null != remarks" >
+            <if test="null != remarks">
                 #{remarks ,jdbcType=VARCHAR},
             </if>
-            <if test="null != state" >
+            <if test="null != state">
                 #{state ,jdbcType=INTEGER}
             </if>
         </trim>
@@ -175,41 +168,42 @@
 
     <!--查询数据列表-->
     <select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map">
-        SELECT <include refid="Base_Column_List" />
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM cm_customer
         <where>
-        <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
-            <if test="null != custName" >
+            <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
+            <if test="null != custName">
                 <![CDATA[ AND cust_name = #{custName ,jdbcType=VARCHAR} ]]>
             </if>
-            <if test="null != idenType" >
+            <if test="null != idenType">
                 <![CDATA[ AND iden_type = #{idenType ,jdbcType=INTEGER} ]]>
             </if>
-            <if test="null != idenNumber" >
+            <if test="null != idenNumber">
                 <![CDATA[ AND iden_number = #{idenNumber ,jdbcType=VARCHAR} ]]>
             </if>
-            <if test="null != effectiveTime" >
+            <if test="null != effectiveTime">
                 <![CDATA[ AND effective_time = #{effectiveTime ,jdbcType=TIMESTAMP} ]]>
             </if>
-            <if test="null != expireTime" >
+            <if test="null != expireTime">
                 <![CDATA[ AND expire_time = #{expireTime ,jdbcType=TIMESTAMP} ]]>
             </if>
-            <if test="null != createTime" >
+            <if test="null != createTime">
                 <![CDATA[ AND create_time = #{createTime ,jdbcType=TIMESTAMP} ]]>
             </if>
-            <if test="null != modifyTime" >
+            <if test="null != modifyTime">
                 <![CDATA[ AND modify_time = #{modifyTime ,jdbcType=TIMESTAMP} ]]>
             </if>
-            <if test="null != createOperator" >
+            <if test="null != createOperator">
                 <![CDATA[ AND create_operator = #{createOperator ,jdbcType=INTEGER} ]]>
             </if>
-            <if test="null != modifyOperator" >
+            <if test="null != modifyOperator">
                 <![CDATA[ AND modify_operator = #{modifyOperator ,jdbcType=INTEGER} ]]>
             </if>
-            <if test="null != remarks" >
+            <if test="null != remarks">
                 <![CDATA[ AND remarks = #{remarks ,jdbcType=VARCHAR} ]]>
             </if>
-            <if test="null != state" >
+            <if test="null != state">
                 <![CDATA[ AND state = #{state ,jdbcType=INTEGER} ]]>
             </if>
         </where>
