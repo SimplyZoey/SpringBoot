@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.rocky.dao.SecOperatorDao">
-	<resultMap id="BaseResultMap" type="com.rocky.model.busibean.SecOperator">
-		<id property="operatorId" column="operator_id" jdbcType="INTEGER" />
-		<result property="operatorName" column="operator_name" jdbcType="VARCHAR" />
-		<result property="operatorPassword" column="operator_password" jdbcType="VARCHAR" />
-		<result property="operatorType" column="operator_type" jdbcType="INTEGER" />
-		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
-		<result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" />
-		<result property="createOperator" column="create_operator" jdbcType="INTEGER" />
-		<result property="modifyOperator" column="modify_operator" jdbcType="INTEGER" />
-		<result property="remarks" column="remarks" jdbcType="VARCHAR" />
-		<result property="state" column="state" jdbcType="INTEGER" />
-	</resultMap>
+    <resultMap id="BaseResultMap" type="com.rocky.model.busibean.SecOperator">
+        <id property="operatorId" column="operator_id" jdbcType="INTEGER" />
+        <result property="operatorName" column="operator_name" jdbcType="VARCHAR" />
+        <result property="operatorPassword" column="operator_password" jdbcType="VARCHAR" />
+        <result property="operatorType" column="operator_type" jdbcType="INTEGER" />
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+        <result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" />
+        <result property="createOperator" column="create_operator" jdbcType="INTEGER" />
+        <result property="modifyOperator" column="modify_operator" jdbcType="INTEGER" />
+        <result property="remarks" column="remarks" jdbcType="VARCHAR" />
+        <result property="state" column="state" jdbcType="INTEGER" />
+    </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="Base_Column_List">
@@ -38,7 +37,7 @@
         <![CDATA[
         FROM sec_operator
         WHERE
-		operator_id = #{id} 
+		operator_id = #{id}
         ]]>
     </select>
 
@@ -48,42 +47,42 @@
         <set>
             <if test="null != operatorName" >
                 <![CDATA[ operator_name = #{operatorName} , ]]>
-			</if>
+            </if>
             <if test="null != operatorPassword" >
                 <![CDATA[ operator_password = #{operatorPassword} , ]]>
-			</if>
+            </if>
             <if test="null != operatorType" >
                 <![CDATA[ operator_type = #{operatorType} , ]]>
-			</if>
+            </if>
             <if test="null != createTime" >
                 <![CDATA[ create_time = #{createTime} , ]]>
-			</if>
+            </if>
             <if test="null != modifyTime" >
                 <![CDATA[ modify_time = #{modifyTime} , ]]>
-			</if>
+            </if>
             <if test="null != createOperator" >
                 <![CDATA[ create_operator = #{createOperator} , ]]>
-			</if>
+            </if>
             <if test="null != modifyOperator" >
                 <![CDATA[ modify_operator = #{modifyOperator} , ]]>
-			</if>
+            </if>
             <if test="null != remarks" >
                 <![CDATA[ remarks = #{remarks} , ]]>
-			</if>
+            </if>
             <if test="null != state" >
                 <![CDATA[ state = #{state}  ]]>
-			</if>
-		</set>
+            </if>
+        </set>
         <![CDATA[
         WHERE
-		operator_id = #{operatorId ,jdbcType=INTEGER} 
+		operator_id = #{operatorId ,jdbcType=INTEGER}
         ]]>
     </update>
 
     <delete id="deleteById" parameterType="java.lang.Integer" >
         <![CDATA[
         DELETE FROM sec_operator WHERE
-		operator_id = #{id} 
+		operator_id = #{id}
         ]]>
     </delete>
 
@@ -92,31 +91,31 @@
         INSERT INTO sec_operator
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="null != operatorName" >
-			    operator_name,
+                operator_name,
             </if>
             <if test="null != operatorPassword" >
-			    operator_password,
+                operator_password,
             </if>
             <if test="null != operatorType" >
-			    operator_type,
+                operator_type,
             </if>
             <if test="null != createTime" >
-			    create_time,
+                create_time,
             </if>
             <if test="null != modifyTime" >
-			    modify_time,
+                modify_time,
             </if>
             <if test="null != createOperator" >
-			    create_operator,
+                create_operator,
             </if>
             <if test="null != modifyOperator" >
-			    modify_operator,
+                modify_operator,
             </if>
             <if test="null != remarks" >
-			    remarks,
+                remarks,
             </if>
             <if test="null != state" >
-			    state
+                state
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -156,7 +155,7 @@
         SELECT <include refid="Base_Column_List" />
         FROM sec_operator
         <where>
-        <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
+            <!-- 下面的条件根据自己的DTO定义来，需要调整 -->
             <if test="null != operatorName" >
                 <![CDATA[ AND operator_name = #{operatorName ,jdbcType=VARCHAR} ]]>
             </if>
