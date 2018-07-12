@@ -35,12 +35,20 @@
     </sql>
 
     <!--根据主键ID查询记录-->
-    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" databaseId="mysql">
         SELECT
           <include refid="Base_Column_List"/>
         FROM cm_customer
         WHERE
           cust_id = #{id}
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" databaseId="oracle">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM cm_customer
+        WHERE
+          cust_id = 13
     </select>
 
     <!--更新-->

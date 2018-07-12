@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +43,7 @@ public class CustomerTests {
 
     @Test
     public void testFindById() {
-        CmCustomer customer = customerService.getById(1);
+        CmCustomer customer = customerService.getById(11);
         Assert.assertNotNull(customer);
         logger.debug(JSON.toJSONString(customer));
     }
@@ -56,8 +57,9 @@ public class CustomerTests {
     }
 
     @Test
+    @Transactional
     public void testDeleteById() {
-        customerService.deleteById(2);
+        customerService.deleteById(11);
     }
 
     @Test
