@@ -22,7 +22,7 @@ public class AnalyzePomDependency {
     }
 
     public void test(){
-
+        System.out.println("   ");
     }
 
 }
