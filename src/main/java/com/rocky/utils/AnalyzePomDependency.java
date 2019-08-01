@@ -21,4 +21,8 @@ public class AnalyzePomDependency {
         return model;
     }
 
+    public void test(){
+
+    }
+
 }
